@@ -1,0 +1,41 @@
+version: '3.8'
+services:
+  postgres:
+    container_name: postgres
+    image: 'postgres:15'
+    restart: always
+    ports:
+      - '5432:5432'
+    env_file:
+      - ./backend/.env
+    volumes:
+      - './pgsql:/var/lib/postgresql/data'
+    networks:
+      - default
+  
+  backend:
+    container_name: backend
+    build:
+      context: ./backend
+      dockerfile: ./Dockerfile
+    restart: always
+    env_file:
+      - ./backend/.env
+    ports:
+      - "8000:80"
+    links:
+      - postgres
+    volumes:
+      - './backend/media:/app/media'
+    depends_on:
+      - postgres
+    networks:
+      - default
+
+networks:
+  default:
+    driver: bridge
+
+volumes:
+  pgsql:
+    driver: local
