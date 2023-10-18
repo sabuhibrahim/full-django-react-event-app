@@ -27,10 +27,27 @@ services:
       - postgres
     volumes:
       - './backend/media:/app/media'
+      - './backend/static:/app/static'
     depends_on:
       - postgres
     networks:
       - default
+  
+  nginx:
+    container_name: nginx
+    image: nginx:latest
+    restart: always
+    ports:
+      - "80:80"
+    volumes:
+      - './nginx/default.conf:/etc/nginx/conf.d/default.conf'
+      - './backend/static:/app/static'
+    networks:
+      - default
+    links:
+      - backend
+    depends_on:
+      - backend
 
 networks:
   default:
