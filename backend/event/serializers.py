@@ -22,6 +22,17 @@ class OwnerSerializer(serializers.ModelSerializer):
         )
 
 
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = (
+            "id",
+            "email",
+            "full_name",
+            "date_joined",
+        )
+
+
 class ClubCreateSerializer(serializers.Serializer):
     title = serializers.CharField(required=True, allow_blank=False)
     description = serializers.CharField(allow_blank=True)

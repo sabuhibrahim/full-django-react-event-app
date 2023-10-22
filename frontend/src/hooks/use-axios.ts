@@ -21,14 +21,12 @@ const useAxios = () => {
     const responseIntercept = axios.interceptors.response.use(
       (response) => response,
       async (error) => {
-        if (token) {
-          const prevRequest = error?.config;
-          if (error?.response?.status === 403 && !prevRequest?.sent) {
-            prevRequest.sent = true;
-            const newToken = await refresh();
-            prevRequest.headers["Authorization"] = `Bearer ${newToken}`;
-            return axios(prevRequest);
-          }
+        const prevRequest = error?.config;
+        if (error?.response?.status === 403 && !prevRequest?.sent) {
+          prevRequest.sent = true;
+          const newToken = await refresh();
+          prevRequest.headers["Authorization"] = `Bearer ${newToken}`;
+          return axios(prevRequest);
         }
 
         return Promise.reject(error);

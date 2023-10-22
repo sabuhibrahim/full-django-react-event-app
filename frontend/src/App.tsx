@@ -3,10 +3,12 @@ import { Routes, Route } from "react-router-dom";
 import Layout from "./layouts/Layout";
 import Clubs from "./pages/clubs";
 import { useTheme } from "./store/theme-context";
+import useUser from "./hooks/use-user";
 
 
 function App() {
   const theme = useTheme();
+  useUser();
   return (
     <div 
       className={

@@ -2,24 +2,35 @@ import React, { useContext, useState } from "react";
 
 import { AuthData } from "../types/auth";
 import { Props } from "../types/props";
+import { User } from "../types/user";
 
 const initialData: AuthData = {
   token: null,
   isLoggedIn: false,
-  setToken: (token: string) => {},
+  setToken: (token: string | null) => {},
+  user: null,
+  setUser: (user: User | null) => {},
+  login: false,
+  updateLogin: (l: boolean) => {},
 };
 
 const AuthContext = React.createContext(initialData);
 
 export const AuthProvider = (props: Props) => {
   const [token, setToken] = useState<string | null>(null);
+  const [user, setUser] = useState<User | null>(null);
+  const [login, updateLogin] = useState<boolean>(false);
 
   const isLoggedIn = !!token;
 
   const authContext: AuthData = {
     token,
     setToken,
-    isLoggedIn
+    isLoggedIn,
+    user,
+    setUser,
+    login,
+    updateLogin,
   };
 
   return (

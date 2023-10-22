@@ -4,6 +4,8 @@ import ThemeToggle from '../../components/theme-toggle';
 import HeaderLink from './header-link';
 import { useAuth } from '../../store/auth-context';
 import { useLogin } from '../../store/login-context';
+import useUser from '../../hooks/use-user';
+import { User } from '../../types/user';
 
 const NAV_ITEMS = [
   { path: '', name: 'Clubs' },
@@ -11,12 +13,14 @@ const NAV_ITEMS = [
 ];
 
 const Header = () => {
-  const { isLoggedIn } = useAuth();
+  const { isLoggedIn, user } = useAuth();
   const {open, setOpen} = useLogin();
   return (
     <nav className="flex flex-col justify-between py-12 md:flex-row">
       <Link to={"/"} className="self-start md:self-auto">
-        <h1 className="text-3xl font-bold">Events all Everywhere</h1>
+        <h1 className="text-3xl font-bold">{
+          user ? user.full_name ?? user.email : "Events all Everywhere"
+        }</h1>
       </Link>
       <div className="my-6 flex space-x-8 self-center md:my-0 md:self-auto">
         <ul className="flex space-x-8">

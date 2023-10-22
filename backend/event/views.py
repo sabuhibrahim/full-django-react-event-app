@@ -228,3 +228,11 @@ class EventDetailView(APIView):
         event = self.get_object(id)
         event.delete()
         return Response(status=status.HTTP_200_OK)
+
+
+class ProfileView(APIView):
+    permission_classes = (IsAuthenticated,)
+    serializer_class = s.UserSerializer
+
+    def get(self, request, *args, **kwargs):
+        return Response(self.serializer_class(request.user).data)

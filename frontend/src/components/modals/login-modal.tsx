@@ -5,11 +5,12 @@ import { Dialog, Transition } from '@headlessui/react';
 import { useLogin } from '../../store/login-context';
 import { AxiosError } from 'axios';
 import ErrorAlert from '../alerts/error-alert';
+import useUser from '../../hooks/use-user';
 
 const LOGIN_URL = "/auth/login"
 
 const LoginModal = () => {
-  const {setToken} = useAuth();
+  const {setToken, updateLogin} = useAuth();
 
   const {open, setOpen} = useLogin();
 
@@ -33,6 +34,7 @@ const LoginModal = () => {
       setToken(token);
       setEmail("");
       setPassword("");
+      updateLogin(true);
 
     } catch (err) {
       if(err instanceof AxiosError) {
