@@ -8,7 +8,7 @@ import { AuthProvider } from "./store/auth-context";
 import { ThemeProvider } from "./store/theme-context";
 import { BrowserRouter} from "react-router-dom";
 import reportWebVitals from './reportWebVitals';
-import { LoginProvider } from './store/login-context';
+import { AuthModalProvider } from './store/auth-modal-context';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -18,9 +18,9 @@ root.render(
     <BrowserRouter>
       <AuthProvider>
         <ThemeProvider>
-          <LoginProvider>
+          <AuthModalProvider>
             <App />
-          </LoginProvider>
+          </AuthModalProvider>
         </ThemeProvider>
       </AuthProvider>
     </BrowserRouter>

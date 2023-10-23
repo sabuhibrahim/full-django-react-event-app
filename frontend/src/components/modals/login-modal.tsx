@@ -2,17 +2,16 @@ import { Fragment, useRef, useState } from 'react'
 import { useAuth } from '../../store/auth-context'
 import useAxios from '../../hooks/use-axios';
 import { Dialog, Transition } from '@headlessui/react';
-import { useLogin } from '../../store/login-context';
+import { useAuthModal } from '../../store/auth-modal-context';
 import { AxiosError } from 'axios';
 import ErrorAlert from '../alerts/error-alert';
-import useUser from '../../hooks/use-user';
 
 const LOGIN_URL = "/auth/login"
 
 const LoginModal = () => {
   const {setToken, updateLogin} = useAuth();
 
-  const {open, setOpen} = useLogin();
+  const {loginOpen, setLoginOpen} = useAuthModal();
 
   const axios = useAxios();
 
@@ -49,8 +48,8 @@ const LoginModal = () => {
   }
 
   return (
-    <Transition.Root show={open} as={Fragment}>
-      <Dialog as="div" className="relative z-10" initialFocus={emailRef} onClose={setOpen}>
+    <Transition.Root show={loginOpen} as={Fragment}>
+      <Dialog as="div" className="relative z-10" initialFocus={emailRef} onClose={setLoginOpen}>
         <Transition.Child 
           as={Fragment}
           enter="ease-out duration-300"
@@ -159,7 +158,7 @@ const LoginModal = () => {
                         "dark:text-gray-300 dark:border-gray-500 dark:hover:text-white " + 
                         "dark:hover:bg-gray-600 dark:focus:ring-gray-600"
                       }
-                      onClick={() => setOpen(!open)}
+                      onClick={() => setLoginOpen(!loginOpen)}
                     >
                       Close
                     </button>

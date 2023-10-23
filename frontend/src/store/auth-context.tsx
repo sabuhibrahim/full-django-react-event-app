@@ -12,6 +12,7 @@ const initialData: AuthData = {
   setUser: (user: User | null) => {},
   login: false,
   updateLogin: (l: boolean) => {},
+  clearState: () => {},
 };
 
 const AuthContext = React.createContext(initialData);
@@ -23,6 +24,12 @@ export const AuthProvider = (props: Props) => {
 
   const isLoggedIn = !!token;
 
+  const clearState = () => {
+    setToken(null);
+    setUser(null);
+    updateLogin(false);
+  }
+
   const authContext: AuthData = {
     token,
     setToken,
@@ -31,6 +38,7 @@ export const AuthProvider = (props: Props) => {
     setUser,
     login,
     updateLogin,
+    clearState,
   };
 
   return (

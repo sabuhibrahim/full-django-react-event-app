@@ -10,7 +10,7 @@ const useAxios = () => {
   useEffect(() => {
     const requestIntercept = axios.interceptors.request.use(
       (config) => {
-        if (token && config.headers["Authorization"]) {
+        if (token && !config.headers["Authorization"]) {
           config.headers["Authorization"] = `Bearer ${token}`;
         }
         return config;

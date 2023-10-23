@@ -4,6 +4,7 @@ import Header from '../components/header';
 import ScrollUpButton from '../components/scroll-up-button';
 import LoginModal from '../components/modals/login-modal';
 import { useAuth } from '../store/auth-context';
+import RegisterModal from '../components/modals/register-modal';
 
 const Layout = (props: Props) => {
   const { isLoggedIn } = useAuth();
@@ -11,7 +12,10 @@ const Layout = (props: Props) => {
     <React.Fragment>
       <Header/>
       <main>
-        {!isLoggedIn && <LoginModal/> }
+        {!isLoggedIn && <React.Fragment>
+          <LoginModal/> 
+          <RegisterModal/>
+        </React.Fragment>}
         {props.children}
       </main>
       <div className="fixed bottom-12 right-10">

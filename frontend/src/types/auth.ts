@@ -8,4 +8,5 @@ export type AuthData = {
   setUser: (user: User | null) => void;
   login: boolean;
   updateLogin: (l: boolean) => void;
+  clearState: () => void;
 };
