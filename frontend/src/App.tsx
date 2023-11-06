@@ -7,13 +7,13 @@ import useUser from "./hooks/use-user";
 
 
 function App() {
-  const theme = useTheme();
+  const { theme } = useTheme();
   useUser();
   return (
     <div 
       className={
         theme + " " +
-        "text-primary bg-primary relative mx-auto mb-20 flex w-full max-w-screen-xl flex-col px-[10vw] md:px-[5vw]"
+        "text-primary bg-primary relative mx-auto flex w-full flex-col px-[10vw] md:px-[5vw] pb-20"
       }
     >
       <Layout>

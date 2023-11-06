@@ -5,18 +5,47 @@ import { IoMdClose } from 'react-icons/io';
 
 import useFocus from "../hooks/use-focus";
 import useHover from '../hooks/use-hover';
+import { createSearchParams, useLocation, useNavigate } from 'react-router-dom';
+
+let timeout;
 
 export default function SearchBar() {
-  const [query, setQuery] = useState<string>("");
+
+  const location = useLocation();
+  const params = new URLSearchParams(location.search);
+  const navigate = useNavigate();
+
+  const [query, setQuery] = useState<string>(params.get("search") ?? "");
   const { ref: hoverRef, isHovering } = useHover<HTMLDivElement>();
   const { ref: focusRef, isFocusing } = useFocus<HTMLInputElement>();
 
   const handleInputClear = () => {
     setQuery('');
+    clearTimeout(timeout);
+
+    timeout = setTimeout(() => {
+      params.set("search", "");
+      params.set("page", "1");
+      navigate({
+        pathname: location.pathname,
+        search: createSearchParams(params).toString(),
+      })
+    }, 500);
   };
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     setQuery(e.target.value);
+
+    clearTimeout(timeout);
+
+    timeout = setTimeout(() => {
+      params.set("search", e.target.value);
+      params.set("page", "1");
+      navigate({
+        pathname: location.pathname,
+        search: createSearchParams(params).toString(),
+      })
+    }, 500);
   };
 
   return (

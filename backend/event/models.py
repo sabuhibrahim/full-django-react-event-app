@@ -17,7 +17,10 @@ class Club(models.Model):
     updated_at = models.DateTimeField(_("updated at"), auto_now=True)
 
     subscribers = models.ManyToManyField(
-        "base_auth.User", verbose_name=_("subscribers"), related_name="subscriptions"
+        "base_auth.User",
+        verbose_name=_("subscribers"),
+        related_name="subscriptions",
+        blank=True,
     )
 
     class Meta:
@@ -39,7 +42,10 @@ class Event(models.Model):
     updated_at = models.DateTimeField(_("updated at"), auto_now=True)
 
     participaters = models.ManyToManyField(
-        "base_auth.User", verbose_name=_("participaters"), related_name="participations"
+        "base_auth.User",
+        verbose_name=_("participaters"),
+        related_name="participations",
+        blank=True,
     )
 
     class Meta:

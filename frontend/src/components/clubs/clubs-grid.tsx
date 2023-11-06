@@ -2,10 +2,26 @@ import { useRef } from 'react';
 
 import Paginate from '../paginate';
 import ClubCard from '../../components/clubs/club-card';
-import { Club } from '../../types/club';
+import { useLocation } from 'react-router-dom';
+import { Query } from '../../types/query';
+import useClubs from '../../hooks/use-clubs';
 
-export default function PostsGrid({ clubs }: { clubs: Club[] }) {
+ const ClubsGrid = () => {
   const rootRef = useRef<HTMLDivElement>(null);
+
+  const location = useLocation();
+  const query: Query = {
+    search: null,
+    page: 1,
+  };
+  if (location.search) {
+    const params = new URLSearchParams(location.search);
+    query.search = params.get("search");
+    if(!!params.get("page")) {
+      query.page = params.get("page");
+    }
+  }
+  const { clubs, count } = useClubs(query)
 
   return (
     <section
@@ -24,9 +40,12 @@ export default function PostsGrid({ clubs }: { clubs: Club[] }) {
           ))}
         </ul>
       ) : (
-        <p className="mt-10 text-center text-lg">No matching posts found</p>
+        <p className="mt-10 text-center text-lg">No matching clubs found</p>
       )}
-      <Paginate totalPages={5} elementToScroll={rootRef.current} />
+      <Paginate totalItemCount={count} elementToScroll={rootRef.current} />
     </section>
   );
 }
+
+
+export default ClubsGrid;

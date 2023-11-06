@@ -17,7 +17,7 @@ from . import serializers as s
 @api_view(http_method_names=[GET])
 @permission_classes(permission_classes=[AllowAny])
 def club_list(request) -> Response:
-    query = s.QuerySerializer(data=request.data)
+    query = s.QuerySerializer(data=request.GET)
     query.is_valid(raise_exception=True)
     clubs_query = Club.objects.all()
 

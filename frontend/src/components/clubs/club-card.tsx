@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 
 import { Club } from '../../types/club';
+import { getImageUrl } from '../../api/urls';
 
 
 const ClubCard = ({
@@ -11,9 +12,9 @@ const ClubCard = ({
   return (
     <Link to={`/clubs/${id}`}>
       <article className="mx-auto flex max-w-[25rem] flex-col overflow-hidden rounded-xl shadow-xl shadow-gray-400 transition-all duration-300 hover:scale-[1.05] hover:shadow-2xl dark:shadow-black">
-        <div className="relative h-60">
+        <div className="relative h-auto">
           <img
-            src={image}
+            src={getImageUrl(image)}
             alt="cover image"
             style={{ objectFit: 'cover' }}
             placeholder="blur"

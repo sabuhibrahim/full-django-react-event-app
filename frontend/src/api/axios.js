@@ -1,9 +1,8 @@
 import axios from "axios";
-
-const BASE_URL = "http://localhost/api/v1";
+import { BASE_API_URL } from "./urls";
 
 export default axios.create({
-  baseURL: BASE_URL,
+  baseURL: BASE_API_URL,
   headers: { "Content-Type": "application/json" },
   withCredentials: true,
 });
